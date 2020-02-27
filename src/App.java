@@ -1,6 +1,10 @@
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Random;
 
-public class App {
+public class App implements KeyListener {
 
     public static int widthWall = 20;
     public static int heightWall = 40;
@@ -9,11 +13,11 @@ public class App {
     public static boolean moveLeft = false;
     public static boolean moveRight = false;
     public static int foodX = 1;
+    public static int foodY = 1;
     public static int player = 18;
 
     public static void main(String[] args) {
-
-
+        
         game();
 
     }
@@ -25,7 +29,9 @@ public class App {
                 if (i == 0 || i == widthWall - 1) {
                     System.out.print("-");
                 }
-                if (foodX == i) {
+                if (foodX == i && foodY == j) {
+                    Random random = new Random();
+                    foodX = random.nextInt(20) + 1;
                     System.out.print("o");
                 }
                 if (player == j && player == i) {
@@ -68,9 +74,7 @@ public class App {
     public static void clearScreen() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -99,4 +103,64 @@ public class App {
 
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
+                if (moveRight == true) {
+                    break;
+                }
+                moveLeft = true;
+                moveRight = false;
+                break;
+            case KeyEvent.VK_D:
+                if (moveLeft == true) {
+                    break;
+                }
+                moveRight = true;
+                moveLeft = false;
+                break;
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyCode()) {
+
+            case KeyEvent.VK_A:
+                if (moveRight == true) {
+                    break;
+                }
+                moveLeft = true;
+                moveRight = false;
+                break;
+            case KeyEvent.VK_D:
+                if (moveLeft == true) {
+                    break;
+                }
+                moveRight = true;
+                moveLeft = false;
+                break;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
+                if (moveRight == true) {
+                    break;
+                }
+                moveLeft = true;
+                moveRight = false;
+                break;
+            case KeyEvent.VK_D:
+                if (moveLeft == true) {
+                    break;
+                }
+                moveRight = true;
+                moveLeft = false;
+                break;
+        }
+    }
 }
