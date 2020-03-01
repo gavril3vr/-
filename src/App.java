@@ -14,7 +14,8 @@ public class App implements KeyListener {
     public static boolean moveRight = false;
     public static int foodX = 1;
     public static int foodY = 1;
-    public static int player = 18;
+    public static int playerX = 18;
+    public static int playerY = 4;
 
     public static void main(String[] args) {
 
@@ -22,19 +23,23 @@ public class App implements KeyListener {
 
     }
 
-    public static void drawWall() {
+    public static void drawGameGrid() {
+        int[][] matrix = new int[widthWall][heightWall];
 
-        for (int i = 0; i < widthWall; i++) { //редове
-            for (int j = 0; j < heightWall; j++) { //колони
+        for (int i = 0; i < matrix.length; i++) { //редове
+            for (int j = 0; j < matrix.length; j++) { //колони
                 if (i == 0 || i == widthWall - 1) {
-                    System.out.print("-");
+                    System.out.print(" - ");
                 }
                 if (foodX == i && foodY == j) {
                     Random random = new Random();
                     foodX = random.nextInt(20) + 1;
-                    System.out.print("o");
+                    for (int k = 0; k < foodY; k++) {
+                        System.out.print("o");
+                    }
+
                 }
-                if (i == player && j == player) {
+                if (i == playerX && j == playerY) {
                     System.out.print("\\__/");
                 }
 
@@ -45,25 +50,25 @@ public class App implements KeyListener {
     }
 
     public static void moveRight() {
-        player++;
+        playerX++;
     }
 
     public static void moveLeft() {
-        player--;
+        playerX--;
     }
 
 
     public static void getFood() {
         // player +10
         // move food row
-        if (foodX == player) {
+        if (foodX == playerX && foodY == playerY) {
             score += 10;
         }
     }
 
     public static void game() {
         while (!gameOver) {
-            drawWall();
+            drawGameGrid();
             sleep();
             rules();
             controls();
@@ -86,7 +91,7 @@ public class App implements KeyListener {
 
     public static void sleep() {
         try {
-            Thread.sleep(250);
+            Thread.sleep(350);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -107,18 +112,20 @@ public class App implements KeyListener {
     public void keyTyped(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
-                if (moveRight == true) {
-                    break;
-                }
-                moveLeft = true;
-                moveRight = false;
+                moveLeft();
+//                if (moveRight == true) {
+//                    break;
+//                }
+//                moveLeft = true;
+//                moveRight = false;
                 break;
             case KeyEvent.VK_D:
-                if (moveLeft == true) {
-                    break;
-                }
-                moveRight = true;
-                moveLeft = false;
+                moveRight();
+//                if (moveLeft == true) {
+//                    break;
+//                }
+//                moveRight = true;
+//                moveLeft = false;
                 break;
         }
     }
@@ -128,18 +135,20 @@ public class App implements KeyListener {
         switch (e.getKeyCode()) {
 
             case KeyEvent.VK_A:
-                if (moveRight == true) {
-                    break;
-                }
-                moveLeft = true;
-                moveRight = false;
+                moveRight();
+//                if (moveRight == true) {
+//                    break;
+//                }
+//                moveLeft = true;
+//                moveRight = false;
                 break;
             case KeyEvent.VK_D:
-                if (moveLeft == true) {
-                    break;
-                }
-                moveRight = true;
-                moveLeft = false;
+                moveRight();
+//                if (moveLeft == true) {
+//                    break;
+//                }
+//                moveRight = true;
+//                moveLeft = false;
                 break;
         }
     }
@@ -148,18 +157,20 @@ public class App implements KeyListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
-                if (moveRight == true) {
-                    break;
-                }
-                moveLeft = true;
-                moveRight = false;
+                moveLeft();
+//                if (moveRight == true) {
+//                    break;
+//                }
+//                moveLeft = true;
+//                moveRight = false;
                 break;
             case KeyEvent.VK_D:
-                if (moveLeft == true) {
-                    break;
-                }
-                moveRight = true;
-                moveLeft = false;
+                moveRight();
+//                if (moveLeft == true) {
+//                    break;
+//                }
+//                moveRight = true;
+//                moveLeft = false;
                 break;
         }
     }
