@@ -15,12 +15,13 @@ public class App implements KeyListener {
     public static int foodX = 1;
     public static int foodY = 1;
     public static int playerX = 18;
-    public static int playerY = 4;
+    public static int playerY = 3;
+    public static int timer = 10;
+
 
     public static void main(String[] args) {
 
         game();
-
     }
 
     public static void drawGameGrid() {
@@ -29,7 +30,7 @@ public class App implements KeyListener {
         for (int i = 0; i < matrix.length; i++) { //редове
             for (int j = 0; j < matrix.length; j++) { //колони
                 if (i == 0 || i == widthWall - 1) {
-                    System.out.print(" - ");
+                    System.out.print("- ");
                 }
                 if (foodX == i && foodY == j) {
                     Random random = new Random();
@@ -37,31 +38,45 @@ public class App implements KeyListener {
                     for (int k = 0; k < foodY; k++) {
                         System.out.print("o");
                     }
-
                 }
                 if (i == playerX && j == playerY) {
                     System.out.print("\\__/");
+
                 }
 
             }
             System.out.println();
         }
         System.out.println("Score : " + score);
+
+    }
+
+    public static int countdown() {
+
+        while (timer > 0) {
+            //System.out.println("Remaining: " + timer + " seconds");
+            try {
+                timer--;
+                Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
+            } catch (InterruptedException e) {
+                //I don't think you need to do anything for your particular problem
+            }
+        }
+        return timer;
     }
 
     public static void moveRight() {
-        playerX++;
+        playerX += 1;
     }
 
     public static void moveLeft() {
-        playerX--;
+        playerX -= 1;
     }
 
 
     public static void getFood() {
-        // player +10
         // move food row
-        if (foodX == playerX && foodY == playerY) {
+        if (foodX == playerX) {
             score += 10;
         }
     }
@@ -98,80 +113,42 @@ public class App implements KeyListener {
     }
 
     public static void rules() {
-        gameOver();
         getFood();
-
+        gameOver();
     }
 
     public static void gameOver() {
-        //Time = 5 sek
+       // 10 sec gameOver
 
     }
 
-    @Override
     public void keyTyped(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_A:
-                moveLeft();
-//                if (moveRight == true) {
-//                    break;
-//                }
-//                moveLeft = true;
-//                moveRight = false;
-                break;
-            case KeyEvent.VK_D:
-                moveRight();
-//                if (moveLeft == true) {
-//                    break;
-//                }
-//                moveRight = true;
-//                moveLeft = false;
-                break;
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            moveRight = true;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            moveLeft = true;
         }
     }
 
-    @Override
+
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-
-            case KeyEvent.VK_A:
-                moveRight();
-//                if (moveRight == true) {
-//                    break;
-//                }
-//                moveLeft = true;
-//                moveRight = false;
-                break;
-            case KeyEvent.VK_D:
-                moveRight();
-//                if (moveLeft == true) {
-//                    break;
-//                }
-//                moveRight = true;
-//                moveLeft = false;
-                break;
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            moveRight = true;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            moveLeft = true;
         }
     }
 
-    @Override
+
     public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_A:
-                moveLeft();
-//                if (moveRight == true) {
-//                    break;
-//                }
-//                moveLeft = true;
-//                moveRight = false;
-                break;
-            case KeyEvent.VK_D:
-                moveRight();
-//                if (moveLeft == true) {
-//                    break;
-//                }
-//                moveRight = true;
-//                moveLeft = false;
-                break;
+        if (e.getKeyCode() == KeyEvent.VK_D) {
+            moveRight = false;
         }
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            moveLeft = false;
+        }
+
     }
 }
