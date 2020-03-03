@@ -1,17 +1,12 @@
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Random;
 
-public class App implements KeyListener {
+public class App {
 
     public static int widthWall = 20;
     public static int heightWall = 40;
     public static boolean gameOver = false;
     public static int score = 0;
-    public static boolean moveLeft = false;
-    public static boolean moveRight = false;
     public static int foodX = 1;
     public static int foodY = 1;
     public static int playerX = 18;
@@ -20,7 +15,7 @@ public class App implements KeyListener {
 
 
     public static void main(String[] args) {
-
+        MyKeyListener key = new MyKeyListener();
         game();
     }
 
@@ -66,11 +61,15 @@ public class App implements KeyListener {
     }
 
     public static void moveRight() {
-        playerX += 1;
+        if (MyKeyListener.moveRight) {
+            playerX += 1;
+        }
     }
 
     public static void moveLeft() {
-        playerX -= 1;
+        if (MyKeyListener.moveLeft) {
+            playerX -= 1;
+        }
     }
 
 
@@ -118,37 +117,8 @@ public class App implements KeyListener {
     }
 
     public static void gameOver() {
-       // 10 sec gameOver
+        // 10 sec gameOver
 
     }
 
-    public void keyTyped(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_D) {
-            moveRight = true;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-            moveLeft = true;
-        }
-    }
-
-
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_D) {
-            moveRight = true;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-            moveLeft = true;
-        }
-    }
-
-
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_D) {
-            moveRight = false;
-        }
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-            moveLeft = false;
-        }
-
-    }
 }
