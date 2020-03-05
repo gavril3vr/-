@@ -3,13 +3,13 @@ import java.util.Random;
 
 public class App {
 
-    public static int widthWall = 20;
-    public static int heightWall = 40;
+//    public static int widthWall = 20;
+//    public static int heightWall = 40;
     public static boolean gameOver = false;
     public static int score = 0;
     public static int foodX = 1;
     public static int foodY = 1;
-    public static int playerX = 18;
+    public static int playerX = 3;
     public static int playerY = 3;
     public static int timer = 10;
 
@@ -20,27 +20,55 @@ public class App {
     }
 
     public static void drawGameGrid() {
-        int[][] matrix = new int[widthWall][heightWall];
+        int[][] matrix = {
+                {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 2},
+                {21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21}
+        };
 
         for (int i = 0; i < matrix.length; i++) { //редове
             for (int j = 0; j < matrix.length; j++) { //колони
-                if (i == 0 || i == widthWall - 1) {
-                    System.out.print("- ");
+                if (matrix[i][j] == 1 || matrix[i][j] == 21) {
+                    System.out.print("-" + "  ");
+                } else if (matrix[i][j] == 2) {
+                    System.out.print("|");
+                } else {
+                    System.out.print("." + "  ");
                 }
-                if (foodX == i && foodY == j) {
+                if (matrix[i][j] >= 3 && matrix[i][j] <= 20) {
+                    if (matrix[i][j] == playerX) {
+                        System.out.print("\\_/");
+                    }
+
+                }
+                if (matrix[i][j] == foodX) {
                     Random random = new Random();
                     foodX = random.nextInt(20) + 1;
                     for (int k = 0; k < foodY; k++) {
+                        matrix[i][j] = i + 1;
                         System.out.print("o");
                     }
                 }
-                if (i == playerX && j == playerY) {
-                    System.out.print("\\__/");
-
-                }
-
             }
             System.out.println();
+
         }
         System.out.println("Score : " + score);
 
