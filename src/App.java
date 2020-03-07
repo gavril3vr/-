@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class App {
 
-//    public static int widthWall = 20;
+    //    public static int widthWall = 20;
 //    public static int heightWall = 40;
     public static boolean gameOver = false;
     public static int score = 0;
@@ -22,7 +22,7 @@ public class App {
     public static void drawGameGrid() {
         int[][] matrix = {
                 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {2, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 2},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
                 {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2},
@@ -58,26 +58,24 @@ public class App {
                     }
 
                 }
-                if (matrix[i][j] == foodX) {
-                    Random random = new Random();
-                    foodX = random.nextInt(20) + 1;
-                    for (int k = 0; k < foodY; k++) {
-                        matrix[i][j] = i + 1;
+                if (matrix[i][j] >= 41 && matrix[i][j] <= 58) {
+                    int random = 41 + (int) (Math.random() * (58 - 41 + 1));
+                    if(random == matrix[i][j]) {
                         System.out.print("o");
                     }
+
                 }
             }
             System.out.println();
 
         }
         System.out.println("Score : " + score);
-
     }
 
     public static int countdown() {
 
         while (timer > 0) {
-            //System.out.println("Remaining: " + timer + " seconds");
+            System.out.println("Remaining: " + timer + " seconds");
             try {
                 timer--;
                 Thread.sleep(1000L);    // 1000L = 1000ms = 1 second
@@ -137,6 +135,7 @@ public class App {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
 
     public static void rules() {
@@ -145,7 +144,9 @@ public class App {
     }
 
     public static void gameOver() {
-        // 10 sec gameOver
+        if (timer == 0) {
+            gameOver = true;
+        }
 
     }
 
